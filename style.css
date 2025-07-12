@@ -1,0 +1,210 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: sans-serif;
+    background-color: powderblue;
+}
+
+.page-title {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    color: black;
+    font-size: 2rem;
+    z-index: 100;
+    user-select: none;
+}
+
+.title {
+    position: absolute;
+    top: 50px;
+    left: 30px;
+    color: black;
+    font-size: 1.5rem;
+    z-index: 100;
+    user-select: none;
+}
+
+/* Book */
+
+:root {
+    --book-width: 420px;
+    --book-height: calc(var(--book-width) * 1.414);
+}
+
+.book {
+    position: relative;
+    width: var(--book-width);
+    height: var(--book-height);
+    transition: transform 0.5s;
+}
+
+/* Interactive hover effects */
+.paper:hover {
+    transform: scale(1.02);
+}
+
+.paper.dragging {
+    transform: scale(1.05);
+}
+
+/* Partial flip effect for dragging */
+.paper.partial-flip .front {
+    transform: rotateY(var(--flip-angle, 0deg));
+}
+
+.paper.partial-flip .back {
+    transform: rotateY(var(--flip-angle, 0deg));
+}
+
+.paper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    perspective: 1500px;
+
+}
+
+.front,
+.back {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: left;
+    transition: transform 0.5s;
+}
+
+.front {
+    z-index: 1;
+    backface-visibility: hidden;
+    border-left: 3px solid powderblue;
+}
+
+.back {
+    z-index: 0;
+}
+
+.front-content,
+.back-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-content {
+    transform: rotateY(180deg)
+}
+
+/* Paper flip effect */
+.flipped .front,
+.flipped .back {
+    transform: rotateY(-180deg);
+}
+
+.book-closed #p1,
+.book-closed #p2,
+.book-closed #p3,
+.book-closed #p4 {
+    display: none;
+}
+
+.book::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 10px;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+    z-index: -1;
+}
+
+/* Page corner effect */
+.paper::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Controller Buttons */
+button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 20px;
+    padding: 20px;
+    transition: transform 0.5s;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover i {
+    color: #636363;
+}
+
+i {
+    font-size: 50px;
+    color: gray;
+}
+
+/* Paper stack order */
+#p1 {
+    z-index: 5;
+}
+
+#p2 {
+    z-index: 4;
+}
+
+#p3 {
+    z-index: 3;
+}
+
+#p4 {
+    z-index: 2;
+}
+
+#p5 {
+    z-index: 1;
+}
+
+.page-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Maintain aspect ratio, fit within container */
+    object-position: center;
+}
+
+.page-image.cover {
+    object-fit: cover;
+    /* For cover images, fill entire area */
+}
+
+.page-image.stretch {
+    object-fit: fill;
+    /* Stretch to fill if needed */
+}
+
